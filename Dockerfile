@@ -15,6 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && export GOPATH=/root/gocode \
   && go get github.com/mailhog/MailHog \
   && mv /root/gocode/bin/MailHog /usr/local/bin \
+  && apt-get clean \
   && rm -rf /root/gocode
 
 # Add mailhog user/group with uid/gid 1000.
