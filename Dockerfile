@@ -2,7 +2,7 @@
 # MailHog Dockerfile
 #
 
-FROM ubuntu:18.04
+FROM socrata/base-bionic
 
 # Install MailHog:
 RUN export DEBIAN_FRONTEND=noninteractive \
