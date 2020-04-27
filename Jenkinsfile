@@ -55,7 +55,7 @@ pipeline {
             script {
               env.DOCKER_TAG = dockerize.push_tagged_image_to_all_repos('mailhog:latest', env.SERVICE_VERSION, env.GIT_COMMIT)
             }
-          }
+	        }
           post {
             failure {
               slackSend(channel: "${env.SLACK_CHANNEL}", color: 'RED', message: "${env.SERVICE}: Building and pushing docker image has failed - ${env.BUILD_URL}")
