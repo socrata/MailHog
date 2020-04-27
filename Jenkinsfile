@@ -28,7 +28,6 @@ pipeline {
     REPOSITORY_OWNER = "${env.GIT_URL.tokenize('/')[2]}"
     SLACK_CHANNEL = '#overwatch-notifications'
     SERVICE_VERSION = '1.0.0'
-    GO_PATH=''
     ARTIFACTORY_CREDS = credentials('shared-eng-artifactory-creds')
   }
 
@@ -52,11 +51,9 @@ pipeline {
       stages {
         stage('Build and push image') {
           steps {
-            withEnv(env.GO_PATH) {
-              sh 'docker build --build-arg ARTIFACTORY_USER=${ARTIFACTORY_CREDS_USR} --build-arg ARTIFACTORY_PASSWORD=${ARTIFACTORY_CREDS_PSW} -t mailhog:latest .'
-              script {
-                env.DOCKER_TAG = dockerize.push_tagged_image_to_all_repos('mailhog:latest', env.SERVICE_VERSION, env.GIT_COMMIT)
-              }
+            sh 'docker build --build-arg ARTIFACTORY_USER=${ARTIFACTORY_CREDS_USR} --build-arg ARTIFACTORY_PASSWORD=${ARTIFACTORY_CREDS_PSW} -t mailhog:latest .'
+            script {
+              env.DOCKER_TAG = dockerize.push_tagged_image_to_all_repos('mailhog:latest', env.SERVICE_VERSION, env.GIT_COMMIT)
             }
           }
           post {
