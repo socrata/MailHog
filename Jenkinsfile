@@ -40,12 +40,6 @@ pipeline {
       }
     }
 
-    stage('Pull Request') {
-      when { changeRequest() }
-      stages {
-      }
-    }
-
     stage('Master') {
       when { branch 'master' }
       stages {
